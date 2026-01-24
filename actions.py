@@ -1,7 +1,8 @@
-from scapy.all import IP, TCP, sr1
+from scapy.all import *
 
 
-def scan_ports(ports, target):
+def scan_ports(target, ports):
+
     for x in ports:
         packet = IP(dst=target) / TCP(dport=x, flags="S")
         response = sr1(packet, timeout=2, verbose=0)
@@ -20,6 +21,10 @@ def scan_ports(ports, target):
             else:
                 print(f"[?] Port [{x}] returned unexpected TCP flags: {flags}")
 
+def arp_scan(network = "192.168.1.0/24"):
 
-def analyze_response():
-    return 0
+    packet = Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=f"{network}")
+    answer, unanswer = srp(packet, timeout = 1, verbose = 0)
+
+    for sent, received in answer:
+        print(f"Найден: {received.psrc}\tMAC: {received.hwsrc}")

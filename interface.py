@@ -17,11 +17,3 @@ def hello_screen():
                                                                                                       
 ''' + RESET)
 
-
-def status():
-    print("Status:  ")
-
-
-def output(action):
-    print(f"Result of {action} is:  ")
-    # форматирование вывода и обработка в будущем
