@@ -4,7 +4,7 @@ main_ports = [135, 139, 445]
 
 if __name__ == "__main__":
 
-    my_scanner = NetworkScan.NetworkScanner("192.168.0.106", main_ports)
+    my_scanner = NetworkScan.NetworkScanner("192.168.0.0", main_ports)
 
     choice = input("Choose an option (1-portScan, 2-grabBanner, 3-arpscan):    ")
 
