@@ -25,13 +25,13 @@ class NetworkScanner:
             ports_to_scan (list[int]): Список портов для проверки.
         """
 
-    def arp_scan(self, count: int = 5) -> dict:
+    def arp_scan(self) -> dict:
 
         network_prefix = self.gateway_ip.rsplit('.', 1)[0]
         target_network = f"{network_prefix}.0/24"
 
-        arp_frame = [Ether(dst = "ff:ff:ff:ff:ff:ff")/ARP(pdst = target_network)] * count
-        answered, unanswered = srp(arp_frame, iface = self.interface, timeout = 3, verbose = False)   
+        arp_frame = Ether(dst = "ff:ff:ff:ff:ff:ff")/ARP(pdst = target_network)
+        answered, unanswered = srp(arp_frame, iface = self.interface, retry = 5, timeout = 3, verbose = False)   
         self.route_tab = {}
 
         for sent, received in answered:
