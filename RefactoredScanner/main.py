@@ -1,10 +1,11 @@
 import actions
 
-main_ports = [135, 139, 445]
-
 if __name__ == "__main__":
 
-    my_scanner = NetworkScan.NetworkScanner("192.168.0.106", main_ports)
+    main_ports = [135, 139, 445]
+    targ = input("Enter an IP:  ")
+
+    my_scanner = actions.NetworkScanner(targ, main_ports)
 
     choice = input("Choose an option (1-portScan, 2-grabBanner, 3-arpscan):    ")
 
@@ -19,4 +20,4 @@ if __name__ == "__main__":
         print("Info: ", banner)
 
     elif choice == "3":
-        my_scanner.arp_scan()
+        print("ARP Table: ", my_scanner.arp_scan())

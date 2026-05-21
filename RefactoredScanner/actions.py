@@ -11,7 +11,7 @@ class NetworkScanner:
         gateway_ip = None
     ) -> None:
 
-        auto_iface, auto_local_ip, auto_gateway = conf.route.route("0.0.0.0")
+        auto_iface, auto_local_ip, auto_gateway = conf.route.route(target_ip)
 
         self.interface = interface or auto_iface
         self.local_ip = local_ip or auto_local_ip
@@ -43,6 +43,8 @@ class NetworkScanner:
 
 
     def scan_ports(self) -> None:
+
+        self.open_ports = []
 
         if not self.ports_to_scan:
             return
@@ -85,3 +87,4 @@ class NetworkScanner:
             return f"Connection error: {e}"
         finally:
             s.close()
+
